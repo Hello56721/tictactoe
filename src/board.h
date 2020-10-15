@@ -12,7 +12,10 @@ namespace board {
     void print();
     
     // Returns if the marker type is a winner
-    bool isWinner(std::string_view player);
+    bool isWinner(const std::string& player);
+    
+    // Returns if the game is tie or not
+    bool isTie();
 }
 
 #endif

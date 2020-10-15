@@ -14,7 +14,7 @@ void board::print() {
     std::cout << "2 " << positions[2][0] << " | " << positions[2][1] << " | " << positions[2][2] << std::endl;
 }
 
-bool board::isWinner(std::string_view player) {
+bool board::isWinner(const std::string& player) {
     for (unsigned int i =0; i < 3; i++) {
         if (positions[i][0] == player.data()) {
             if (positions[i][1] == player.data()) {
@@ -48,4 +48,16 @@ bool board::isWinner(std::string_view player) {
     }
     
     return false;
+}
+
+bool board::isTie() {
+    for (unsigned int i = 0; i < 3; i++) {
+        for (unsigned int j = 0; j < 3; j++) {
+            if (positions[i][j] == " ") {
+                return false;
+            }
+        }
+    }
+    
+    return true;
 }

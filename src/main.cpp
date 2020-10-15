@@ -19,7 +19,7 @@ pos getTurn() {
     return {row, colum};
 }
 
-void play(pos position, std::string_view marker) {
+void play(pos position, const std::string& marker) {
     if (board::positions[position.row][position.colum] != " ") {
         std::cout << "Hey! That position already has a piece!" << std::endl;
         return;
@@ -32,6 +32,7 @@ int main() {
     char shouldQuit = 'n';
     bool isXWinner;
     bool isOWinner;
+    bool isTie;
     
     std::cout << "Welcome to Yue's Terminal based TicTacToe Game!\n";
     board::print();
@@ -39,7 +40,8 @@ int main() {
         std::cout << "Player 1, your turn" << std::endl;
         play(getTurn(), "X");
         isXWinner = board::isWinner("X");
-        if (isXWinner || isOWinner) {
+        isTie = board::isTie();
+        if (isXWinner || isOWinner || isTie) {
             break;
         }
         
@@ -51,7 +53,8 @@ int main() {
         std::cout << "Player 2, your turn" << std::endl;
         play(getTurn(), "O");
         isOWinner = board::isWinner("O");
-        if (isXWinner || isOWinner) {
+        isTie = board::isTie();
+        if (isXWinner || isOWinner || isTie) {
             break;
         }
         
@@ -66,6 +69,11 @@ int main() {
     }
     if (isOWinner) {
         std::cout << "Player 2 wins!" << std::endl;
+        std::cin.ignore();
+        std::cin.ignore();
+    }
+    if (isTie) {
+        std::cout << "The game is a tie! Noone wins!" << std::endl;
         std::cin.ignore();
         std::cin.ignore();
     }
