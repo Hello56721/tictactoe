@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string_view>
 
 #include "board.h"
 
@@ -11,4 +12,40 @@ void board::print() {
     std::cout << "1 " << positions[1][0] << " | " << positions[1][1] << " | " << positions[1][2] << std::endl;
     std::cout << " -----------" << std::endl;
     std::cout << "2 " << positions[2][0] << " | " << positions[2][1] << " | " << positions[2][2] << std::endl;
+}
+
+bool board::isWinner(std::string_view player) {
+    for (unsigned int i =0; i < 3; i++) {
+        if (positions[i][0] == player.data()) {
+            if (positions[i][1] == player.data()) {
+                if (positions[i][2] == player.data()) {
+                    return true;
+                }
+            }
+        }
+        if (positions[0][i] == player.data()) {
+            if (positions[1][i] == player.data()) {
+                if (positions[2][i] == player.data()) {
+                    return true;
+                }
+            }
+        }
+    }
+    
+    if (positions[0][0] == player.data()) {
+        if (positions[1][1] == player.data()) {
+            if (positions[2][2] == player.data()) {
+                return true;
+            }
+        }
+    }
+    if (positions[0][2] == player.data()) {
+        if (positions[1][1] == player.data()) {
+            if (positions[2][0] == player.data()) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
 }

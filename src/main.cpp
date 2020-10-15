@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string_view>
 
 #include "board.h"
 
@@ -18,23 +19,56 @@ pos getTurn() {
     return {row, colum};
 }
 
+void play(pos position, std::string_view marker) {
+    if (board::positions[position.row][position.colum] != " ") {
+        std::cout << "Hey! That position already has a piece!" << std::endl;
+        return;
+    }
+    board::positions[position.row][position.colum] = marker;
+    board::print();
+}
+
 int main() {
+    char shouldQuit = 'n';
+    bool isXWinner;
+    bool isOWinner;
+    
     std::cout << "Welcome to Yue's Terminal based TicTacToe Game!\n";
-    char shouldQuit;
     board::print();
     while (shouldQuit != 'y') {
         std::cout << "Player 1, your turn" << std::endl;
-        pos player1 = getTurn();
-        board::positions[player1.row][player1.colum] = "X";
-        board::print();
+        play(getTurn(), "X");
+        isXWinner = board::isWinner("X");
+        if (isXWinner || isOWinner) {
+            break;
+        }
+        
+        std::cout << "Quit?(y/n) ";
+        std::cin >> shouldQuit;
+        if (shouldQuit == 'y')
+            continue;
         
         std::cout << "Player 2, your turn" << std::endl;
-        pos player2 = getTurn();
-        board::positions[player2.row][player2.colum] = "O";
-        board::print();
+        play(getTurn(), "O");
+        isOWinner = board::isWinner("O");
+        if (isXWinner || isOWinner) {
+            break;
+        }
         
         std::cout << "Quit?(y/n) ";
         std::cin >> shouldQuit;
     }
+    
+    if (isXWinner) {
+        std::cout << "Player 1 wins!" << std::endl;
+        std::cin.ignore();
+        std::cin.ignore();
+    }
+    if (isOWinner) {
+        std::cout << "Player 2 wins!" << std::endl;
+        std::cin.ignore();
+        std::cin.ignore();
+    }
+    
     return 0;
 }
