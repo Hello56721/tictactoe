@@ -9,4 +9,5 @@ include_directories(
 add_executable(
     "tictactoe"
     "src/main.cpp"
+    "src/board.cpp"
 )

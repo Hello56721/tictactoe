@@ -2,10 +2,10 @@
 #define INCLUDED_board_h
 
 #include <vector>
-#include "position.h"
+#include <string>
 
 namespace board {
-    extern std::vector<std::vector<position>> positions;
+    extern std::vector<std::vector<std::string>> positions;
     
     // Displays the board on screen
     void print();
