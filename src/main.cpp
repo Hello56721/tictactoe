@@ -21,6 +21,7 @@ pos getTurn() {
 int main() {
     std::cout << "Welcome to Yue's Terminal based TicTacToe Game!\n";
     char shouldQuit;
+    board::print();
     while (shouldQuit != 'y') {
         std::cout << "Player 1, your turn" << std::endl;
         pos player1 = getTurn();
